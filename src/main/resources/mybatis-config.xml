@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 微信公众号：小康新鲜事儿 -->
+	<!-- 引入db.properties配置文件 -->
+	<properties resource="db.properties" />
+	<!-- 开发常用，别名默认就是实体类的类名 -->
+	<typeAliases>
+		<package name="com.xiaokang.pojo" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- 配置数据库连接信息 POOLED:MYBATIS自带数据源 JNDI:基于TOMCAT的数据源 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${uname}" />
+				<property name="password" value="${pwd}" />
+				<property name="poolMaximumIdleConnections" value="10" />
+				<property name="poolMaximumActiveConnections" value="1000" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 将mapper映射文件加入配置文件中 -->
+	<mappers>
+		<mapper resource="com/xiaokang/mappers/FlightMapper.xml" />
+		<!-- <package name="com.xiaokang.mappers" /> -->
+	</mappers>
+</configuration>

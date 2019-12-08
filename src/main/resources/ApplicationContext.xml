@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="FlightAction" class="com.xiaokang.action.FlightAction">
+		<property name="flightService" ref="FlightService"></property>
+	</bean>
+	<bean id="FlightService"
+		class="com.xiaokang.service.impl.FlightServiceImpl">
+	</bean>
+</beans>

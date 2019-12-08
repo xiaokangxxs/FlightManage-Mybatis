@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace,namespace就是接口的全限定名 -->
+<mapper namespace="com.xiaokang.dao.FlightMapper">
+	<!-- type为集合中的元素类型,property为实体类中的属性，column为数据库表中的字段名.id下面的select用 -->
+	<resultMap type="Plane" id="PlaneResult">
+		<result property="flightno" column="flightno" />
+		<result property="departureCity" column="departureCity" />
+		<result property="arrivalCity" column="arrivalCity" />
+		<result property="departureTime" column="departureTime" />
+		<result property="arrivalTime" column="arrivalTime" />
+	</resultMap>
+
+	<!-- id就是接口中的方法名,parameterType就是方法中的参数类型 -->
+	<insert id="addFlight" parameterType="Plane">
+		insert into flight
+		values(#{flightno},#{departureCity},#{arrivalCity},#{departureTime},#{arrivalTime})
+	</insert>
+	<!-- 根据飞机编号删除指定飞机 -->
+	<delete id="deleteFlight" parameterType="String">
+		delete from flight where
+		flightno=#{flightno}
+	</delete>
+	<!-- 根据起飞城市和到达城市查询指定飞机 -->
+	<select id="queryFlight" parameterType="Plane"
+		resultMap="PlaneResult">
+		select * from flight where
+		departureCity=#{departureCity} and
+		arrivalCity=#{arrivalCity} order by departureTime
+	</select>
+	<!-- 查询所有飞机 -->
+	<select id="selectAllFlight" resultMap="PlaneResult">
+		select * from flight
+		order by departureTime
+	</select>
+	<!-- 根据飞机编号查询指定飞机 -->
+	<select id="queryFlightByFlightno" parameterType="String"
+		resultType="Plane">
+		select * from flight where flightno=#{flightno}
+	</select>
+</mapper>
